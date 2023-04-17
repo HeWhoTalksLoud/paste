@@ -37,8 +37,7 @@ class PasteControllerTest {
             JSONObject jsonText = new JSONObject();
             jsonText.put("text", "text" + i);
             jsonText.put("title", "title" + i);
-            jsonText.put("availabilityTime", 0);
-            jsonText.put("availabilityTimeUnit", "MINUTES");
+            jsonText.put("expirationPeriod", "UNLIMITED");
             jsonText.put("accessType", "PUBLIC");
             jsonText.put("creationDateTime", Instant.now().toString());
             jsonObjects.add(jsonText);
@@ -64,8 +63,7 @@ class PasteControllerTest {
         JSONObject jsonText = new JSONObject();
         jsonText.put("text", "test");
         jsonText.put("title", "test");
-        jsonText.put("availabilityTime", 0);
-        jsonText.put("availabilityTimeUnit", "MINUTES");
+        jsonText.put("expirationPeriod", "UNLIMITED");
         jsonText.put("accessType", "PUBLIC");
         jsonText.put("creationDateTime", Instant.now().toString());
 
@@ -80,8 +78,7 @@ class PasteControllerTest {
         JSONObject jsonText = new JSONObject();
         jsonText.put("text", "get text test");
         jsonText.put("title", "test");
-        jsonText.put("availabilityTime", 0);
-        jsonText.put("availabilityTimeUnit", "MINUTES");
+        jsonText.put("expirationPeriod", "UNLIMITED");
         jsonText.put("accessType", "PUBLIC");
         jsonText.put("creationDateTime", Instant.now().toString());
 
@@ -110,8 +107,7 @@ class PasteControllerTest {
         JSONObject jsonText = new JSONObject();
         jsonText.put("text", "get_text_test");
         jsonText.put("title", "test_search");
-        jsonText.put("availabilityTime", 0);
-        jsonText.put("availabilityTimeUnit", "MINUTES");
+        jsonText.put("expirationPeriod", "UNLIMITED");
         jsonText.put("accessType", "PUBLIC");
         jsonText.put("creationDateTime", Instant.now().toString());
 

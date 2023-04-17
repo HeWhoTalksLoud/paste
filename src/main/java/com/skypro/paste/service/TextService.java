@@ -47,15 +47,8 @@ public class TextService {
         String text = dto.getText();
 
         Specification<Text> textSpecification = (root, query, cb) -> cb.conjunction();
-
-        if (title != null && !title.isBlank()) {
-            textSpecification = textSpecification.and(TextSpecification.byTitle(title));
-        }
-
-        if (text != null && !text.isBlank()) {
-            textSpecification = textSpecification.and(TextSpecification.byText(text));
-        }
-
+        textSpecification = textSpecification.and(TextSpecification.byTitle(title));
+        textSpecification = textSpecification.and(TextSpecification.byText(text));
         textSpecification = textSpecification.and(TextSpecification.publicOnly());
 
         List<Text> texts = textRepository.findAll(textSpecification);
