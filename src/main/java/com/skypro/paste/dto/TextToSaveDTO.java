@@ -3,7 +3,6 @@ package com.skypro.paste.dto;
 import com.skypro.paste.model.PasteAccessType;
 import com.skypro.paste.model.Text;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -15,8 +14,8 @@ public class TextToSaveDTO {
     private String title;
     private ExpirationPeriod expirationPeriod;
     private PasteAccessType accessType;
-    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm:ss")
-    private LocalDateTime creationDateTime;
+//    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm:ss")
+//    private LocalDateTime creationDateTime;
 
     public Text toText() {
         Text text = new Text();
@@ -25,7 +24,7 @@ public class TextToSaveDTO {
         text.setAccessType(this.getAccessType().getString());
         if (this.expirationPeriod != ExpirationPeriod.UNLIMITED) {
             text.setIsNonDeletable(false);
-            text.setExpiryDateTime(calculateExpTime(this.getCreationDateTime(), expirationPeriod));
+            text.setExpiryDateTime(calculateExpTime(text.getCreationDateTime(), expirationPeriod));
         }
         return text;
     }

@@ -50,6 +50,7 @@ public class TextService {
         textSpecification = textSpecification.and(TextSpecification.byTitle(title));
         textSpecification = textSpecification.and(TextSpecification.byText(text));
         textSpecification = textSpecification.and(TextSpecification.publicOnly());
+        textSpecification = textSpecification.and(TextSpecification.validOnly());
 
         List<Text> texts = textRepository.findAll(textSpecification);
 

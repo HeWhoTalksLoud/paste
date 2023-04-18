@@ -4,6 +4,8 @@ import com.skypro.paste.model.PasteAccessType;
 import com.skypro.paste.model.Text;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.Instant;
+
 public class TextSpecification {
     public static Specification<Text> byText(String search) {
         return (root, query, cb) -> {
@@ -25,5 +27,9 @@ public class TextSpecification {
 
     public static Specification<Text> publicOnly() {
         return (root, query, cb) -> cb.equal(root.get("accessType"), PasteAccessType.PUBLIC.getString());
+    }
+
+    public static Specification<Text> validOnly() {
+        return (root, query, cb) -> cb.greaterThanOrEqualTo(root.get("expiryDateTime"), Instant.now());
     }
 }
