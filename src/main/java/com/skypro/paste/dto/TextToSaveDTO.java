@@ -14,8 +14,6 @@ public class TextToSaveDTO {
     private String title;
     private ExpirationPeriod expirationPeriod;
     private PasteAccessType accessType;
-//    @DateTimeFormat(pattern = "dd.MM.yyyy hh:mm:ss")
-//    private LocalDateTime creationDateTime;
 
     public Text toText() {
         Text text = new Text();

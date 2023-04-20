@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ class TextServiceTest {
         text.setTitle("11");
         text.setAccessType("PUBLIC");
 
-        when(textRepository.findLast10(any(String.class))).thenReturn(List.of(text, text));
+        when(textRepository.findLast10(any(LocalDateTime.class))).thenReturn(List.of(text, text));
         assertDoesNotThrow(() -> textService.getLast10());
     }
 

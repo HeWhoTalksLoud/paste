@@ -25,6 +25,15 @@ public class TextSpecification {
         };
     }
 
+    public static Specification<Text> byId(String id) {
+        return (root, query, cb) -> {
+            if (id == null) {
+                return cb.conjunction();
+            }
+            return cb.equal(root.get("id"), id);
+        };
+    }
+
     public static Specification<Text> publicOnly() {
         return (root, query, cb) -> cb.equal(root.get("accessType"), PasteAccessType.PUBLIC.getString());
     }
@@ -32,4 +41,5 @@ public class TextSpecification {
     public static Specification<Text> validOnly() {
         return (root, query, cb) -> cb.greaterThanOrEqualTo(root.get("expiryDateTime"), Instant.now());
     }
+
 }

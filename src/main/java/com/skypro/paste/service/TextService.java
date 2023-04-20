@@ -4,7 +4,6 @@ import com.skypro.paste.dto.RetrievedTextDTO;
 import com.skypro.paste.dto.SearchDTO;
 import com.skypro.paste.dto.TextToSaveDTO;
 import com.skypro.paste.exception.NotFoundException;
-import com.skypro.paste.model.PasteAccessType;
 import com.skypro.paste.model.Text;
 import com.skypro.paste.repository.TextRepository;
 import com.skypro.paste.repository.specification.TextSpecification;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,13 +27,21 @@ public class TextService {
     }
 
     public RetrievedTextDTO getByKey(String key) {
-        Text text = textRepository.findById(key).orElseThrow(() -> new NotFoundException("Текст с ключом " +
-                key + " не найден"));
-        return RetrievedTextDTO.fromText(text);
+        Specification<Text> textSpecification = (root, query, cb) -> cb.conjunction();
+        textSpecification = textSpecification.and(TextSpecification.byId(key));
+        textSpecification = textSpecification.and(TextSpecification.publicOnly());
+        textSpecification = textSpecification.and(TextSpecification.validOnly());
+
+        List<Text> texts = textRepository.findAll(textSpecification);
+        if (texts.isEmpty()) {
+            throw new NotFoundException("Текст с ключом " + key + " не найден");
+        }
+
+        return RetrievedTextDTO.fromText(texts.get(0));
     }
 
     public List<RetrievedTextDTO> getLast10() {
-        List<Text> texts = textRepository.findLast10(PasteAccessType.PUBLIC.getString());
+        List<Text> texts = textRepository.findLast10(LocalDateTime.now());
         if (texts.isEmpty()) {
             throw new NotFoundException("Не удалось найти 10 последних публичных текстов");
         }
